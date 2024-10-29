@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from modules.connector import MyBigQuery, SlackBot, MyBucket
-from modules import  DATASET_NAME, UNIQUE_FIELDS, JOB_CONFIG, BUCKET_NAME
+from modules import DATASET_NAME, UNIQUE_FIELDS, JOB_CONFIG, BUCKET_NAME
 import os
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -111,7 +111,7 @@ class Finland:
                 self.print_and_send(f'{FINLAND} dropped!\n\n')
             except:
                 pass
-            # push the dataframe to BigQuery
+            # push the DataFrame to BigQuery
             try:
                 self.bq.append_from_df(table_name = TABLE_NAME_FI,
                                        df = df,
