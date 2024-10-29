@@ -4,4 +4,6 @@ This repository includes a segment of a project I co-led at New Automotive that 
 
 2). `Plot 1 (Finland)`: A stacked line chart illustrating new vehicle registrations by fuel type over time for Finland. This chart is part of a dashboard that was developed using Python's Plotly and Dash as part of this project.
 
-3). `Plot 2 (Finland)`: A line chart illustrating monthly Battery Electric Vehicle (BEV) sales from the top ten BEV manufacturers for Finland. Again, this chart is part of a dashboard that was developed using Python's Plotly and Dash as part of this project.
+3). `Plot 2 (Finland)`: A line chart illustrating monthly Battery Electric Vehicle (BEV) sales from the top ten BEV manufacturers for Finland. Again, this chart is part of a dashboard that was developed using Plotly and Dash as part of this project.
+
+4). `API.py`: This Python script creates an API using Flask which was used to populate country-specific pages on the company’s website through SquareSpace’s custom JavaScript feature.
