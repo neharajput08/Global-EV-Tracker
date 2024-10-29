@@ -1,6 +1,6 @@
 This repository includes a segment of a project I co-led at New Automotive that focused on tracking global electric vehicle (EV) sales.
 
-`swissModules.py` and `swissECC.py`: These Python scripts scraped monthly new car registration data by fuel type and manufacturer for Switzerland. Similar web scrapers were developed for other countries.
+`swissModules.py` and `swissECC.py`: These Python scripts scraped monthly new car registration data by fuel type for Switzerland. Similar web scrapers were developed for other countries.
 
 `finnishModules.py` and `finnishECC.py`: These Python scripts scraped monthly new car registration data by fuel type and manufacturer for Finland. Similar web scrapers were developed for other countries.
 
