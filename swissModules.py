@@ -127,7 +127,7 @@ class Switzerland:
                                 "registrations"]
         # map the fuel types to their corresponding categories
         fuel_type_df["fuelType"] = fuel_type_df["fuelType"].map(FUEL_TYPE_DICT_CH)
-        # aggregate the dataframe by fuel type
+        # aggregate the DataFrame by fuel type
         fuel_type_df = fuel_type_df.groupby("fuelType", 
                                             as_index = False)\
                                    .agg({"registrations" : "sum"})
@@ -142,7 +142,7 @@ class Switzerland:
 
         :return: None
         """
-        # push the make dataframe to BigQuery
+        # push the make DataFrame to BigQuery
         try:
             self.bq.append_from_df(table_name = TABLE_NAME_CH_MAKE,
                                    df = self.clean_make_data(),
@@ -160,7 +160,7 @@ class Switzerland:
 
         :return: None
         """
-        # push the fuel type dataframe to BigQuery
+        # push the fuel type DataFrame to BigQuery
         try:
             self.bq.append_from_df(table_name = TABLE_NAME_CH_FT,
                                    df = self.clean_fuel_type_data(),
