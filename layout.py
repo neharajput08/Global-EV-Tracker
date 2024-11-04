@@ -56,8 +56,10 @@ layout = dbc.Container(
                                         for country in AVAILABLE_COUNTRY_LIST
                                     ],
                                     id = 'div-countries',
-                                    style = {'overflowY' : 'scroll',
-                                             'height' : '200px'},
+                                    style = {
+                                        'overflowY' : 'scroll',
+                                        'height' : '200px'
+                                    },
                                     className = 'country-switch-container'
                                 ),
                             ],
@@ -107,9 +109,10 @@ layout = dbc.Container(
                     ]
                 )
             ],
-            style = {"position" : "relative", 
-                     "width" : "100%",
-                     "height" : "56.25%"}
+            style = {
+                "position" : "relative", 
+                "width" : "100%",
+                "height" : "56.25%"}
         )
     ],
     fluid = False,
