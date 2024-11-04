@@ -233,14 +233,14 @@ def update_graph(type_dataset,
 
     if type_dataset == 1:
         display_per = abs_per_radio[0]
-        country = selected_countries[0] #only one country in this case
+        country = selected_countries[0]
         df = national_area_plot(country = country.lower())
         fig,df = area_plot(df = df,
                            rolling_window = rolling_window,
                            display_per = display_per)
         condition = 'New Zealand' if country.upper() == 'NZ' else 'Hong Kong' if country.upper() == 'HK' else country.upper() if country.upper() in ['US', 'UK'] else country.title()
         title = f"Market Share by Fuel Type Over Time: {condition}" if display_per else f"New Registrations by Fuel Type Over Time: {condition}"
-        max_value= 100 if display_per == True else df.groupby('date').sum()['registrations'].max() 
+        max_value = 100 if display_per == True else df.groupby('date').sum()['registrations'].max() 
         fig.update_layout(generate_plotly_layout(title = title,
                                                  yaxis_title = "Market Share (%)" if display_per else "New Registrations",
                                                  per = display_per,
@@ -262,7 +262,7 @@ def update_graph(type_dataset,
                          inplace = True)
             if rolling_window:
                 df = df.rolling(rolling_window).mean().dropna()
-            df.reset_index(inplace=True)
+            df.reset_index(inplace = True)
             df['mktShare'] = (df['partial']/ df['total']) * 100
             fig = mkt_share_plot(fig,
                                  df,
@@ -372,11 +372,11 @@ def update_switch_output(type_dataset,
         ),  
     ]
 
-    triggered_id = callback_context.triggered[0]['prop_id'].split('.')[0]  # Get the ID of the triggered Switch
+    triggered_id = callback_context.triggered[0]['prop_id'].split('.')[0]
     countries_selector = []
  
     if 'dataset-dropdown' == triggered_id:
-        if type_dataset in [2,4]: 
+        if type_dataset in [2, 4]: 
             list_countries = COUNTRY_WITH_MAKES
             if type_dataset == 2:
                 controller += [
