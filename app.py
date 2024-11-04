@@ -376,7 +376,6 @@ def update_switch_output(type_dataset,
     countries_selector = []
  
     if 'dataset-dropdown' == triggered_id:
-        # If dataset is 2 or 4, reduce list possible countries (only the ones with makes)
         if type_dataset in [2,4]: 
             list_countries = COUNTRY_WITH_MAKES
             if type_dataset == 2:
