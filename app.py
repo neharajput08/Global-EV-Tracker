@@ -443,8 +443,8 @@ def update_switch_output(type_dataset,
                                                     {'label' : (datetime.today() - relativedelta(months = i + 1)).strftime("%b %Y"), 'value' : i} 
                                                     for i in range(0, 37)
                                                     ],
-                                            multi = True,  # multiple selection allowd
-                                            value = [0],    # default Value
+                                            multi = True,
+                                            value = [0],
                                             className = 'rounded-dropdown'
                                         )
                                     ]
@@ -476,7 +476,7 @@ def update_switch_output(type_dataset,
                         'index' : f'{country}-dyn'
                     },
                     label = "New Zealand" if country.upper() == "NZ" else "Hong Kong" if country.upper() == "HK" else country.upper() if country.upper() in ["US", "UK"] else country.title(),
-                    value = False, # set it off
+                    value = False,
                     className = 'switch'
                 )
             )
