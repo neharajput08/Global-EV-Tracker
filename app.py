@@ -30,9 +30,6 @@ cache = Cache(app.server,
 
 @cache.memoize(timeout = 3600)
 def SCurve_query(country : str) -> DataFrame:
-    """
-    Retrieves S curve data for a specific country.
-    """
     if country != 'world':
         query = f"""
                 WITH total_table AS (
@@ -86,9 +83,6 @@ def SCurve_query(country : str) -> DataFrame:
 def get_national_mkt_share(country : str,
                            fuel_type : str,
                            make_mapping : str) -> DataFrame:
-    """
-    Retrieve national market share data for a specific country, fuel type, and make mapping.
-    """
     query_share =   f"""
                     WITH totalSales AS (
                         SELECT 
@@ -126,9 +120,6 @@ def get_national_mkt_share(country : str,
 
 @cache.memoize(timeout = 3600)
 def national_area_plot(country : str) -> DataFrame:
-    """
-    Retrieve data for generating a national area plot for a specific country.
-    """
     return sql.from_sql_to_pandas(sql_query =   f"""
                                                 SELECT
                                                     date,
@@ -145,9 +136,6 @@ def national_area_plot(country : str) -> DataFrame:
 
 @cache.memoize(timeout = 3600)
 def top_makes_query(country : str) -> DataFrame:
-    """
-    Retrieve data for top makes query for a specific country.
-    """
     return sql.from_sql_to_pandas(sql_query =   f"""
                                                 WITH TopMakes AS (
                                                     SELECT 
@@ -177,9 +165,6 @@ def top_makes_query(country : str) -> DataFrame:
 
 @cache.memoize(timeout = 3600)
 def top_makes_query2(country : str) -> DataFrame:
-    """
-    Retrieve data for top makes query for a specific country.
-    """
     return sql.from_sql_to_pandas(sql_query =   f"""
                                                 WITH Looker AS (
                                                     SELECT
@@ -232,26 +217,20 @@ def update_graph(type_dataset,
                  months_back_list,
                  abs_per_radio,
                  values):
-    """
-    Update the graph based on user selections.
-    """
     fig = go.Figure()
     message_popup = ''
     is_popup = False
 
-    #the list of available countries strongly depends on the selected database
     if type_dataset in [2, 4]:
         selected_countries = [country for country, value in zip(COUNTRY_WITH_MAKES, values) if value]
     else:
         selected_countries = [country for country, value in zip(AVAILABLE_COUNTRY_LIST, values) if value]
 
-    # Return empty figure if no country is selected
     if len(selected_countries) == 0:
         return NO_PLOT, no_update, no_update
 
     df_list = []
 
-    # Area chart 
     if type_dataset == 1:
         display_per = abs_per_radio[0]
         country = selected_countries[0] #only one country in this case
@@ -268,7 +247,6 @@ def update_graph(type_dataset,
                                                  range = [0, max_value]))
         df_list.append(df)
 
-    # Manufacturers market shares
     elif type_dataset == 2:
         missing_countries = []
         fuelType = add_options[0]
@@ -303,7 +281,6 @@ def update_graph(type_dataset,
         missing_countries = ["New Zealand" if country.upper() == "NZ" else "Hong Kong" if country.upper() == "HK" else country.upper() if country.upper() in ["US", "UK"] else country.title() for country in missing_countries]
         message_popup = f"{make}, {fuelType} not sold in: {', '.join(missing_countries)}"
 
-    # S-curve fit 
     if type_dataset == 3:
         selected_countries = [c.lower() for c in selected_countries]
         months_back_list = months_back_list[0]
@@ -352,7 +329,6 @@ def update_graph(type_dataset,
                                                  yaxis_title = "BEV Market Share (%)"))
         selected_countries = [country.lower() for country in selected_countries]
 
-    # Top BEV manufacturers
     elif type_dataset == 4:
         country = selected_countries[0]
         df = top_makes_query(country = country.lower())
@@ -383,11 +359,6 @@ def update_graph(type_dataset,
 def update_switch_output(type_dataset,
                          switch_values,
                          controller):
-
-    """
-    Update switch outputs based on user selections.
-    """
-
     controller = [ 
         html.Label(
             'Rolling Window:',
@@ -401,17 +372,14 @@ def update_switch_output(type_dataset,
         ),  
     ]
 
-    # Get the ID of the triggered input
     triggered_id = callback_context.triggered[0]['prop_id'].split('.')[0]  # Get the ID of the triggered Switch
     countries_selector = []
  
-    # If the dataset dropdown menu has been triggered let's reset switches
     if 'dataset-dropdown' == triggered_id:
         # If dataset is 2 or 4, reduce list possible countries (only the ones with makes)
         if type_dataset in [2,4]: 
             list_countries = COUNTRY_WITH_MAKES
             if type_dataset == 2:
-                # Add Fuel Type dropdown and Make dropdown to the controller
                 controller += [
                         dbc.Col(
                             [
@@ -462,12 +430,10 @@ def update_switch_output(type_dataset,
         else:
             list_countries = AVAILABLE_COUNTRY_LIST
             if type_dataset == 3: 
-                # Add Backtesting Calendar dropdown to the controller
                 controller += [dbc.Col(
                                     [
                                         html.Label('Backtesting Calendar',
                                                    className = 'dropdown-label'),
-                                        # Create the dropdown component
                                         dcc.Dropdown(
                                             id={
                                                 'type' : 'dynamic-backtesting',
@@ -502,7 +468,6 @@ def update_switch_output(type_dataset,
                     )
                 ]
 
-        # Generate the country selector 
         for country in list_countries:
             countries_selector.append(
                 dbc.Switch(
@@ -516,8 +481,6 @@ def update_switch_output(type_dataset,
                 )
             )
 
-    # If a switch is triggered and the current dataset is dataset number 1 or 4
-    # A single option selection must be implemented
     elif type_dataset in [1, 4]:
         list_countries = AVAILABLE_COUNTRY_LIST if type_dataset == 1 else COUNTRY_WITH_MAKES
         for country, value in zip(list_countries, switch_values):
@@ -535,8 +498,6 @@ def update_switch_output(type_dataset,
             )
         controller = no_update
 
-    # For all the other cases - a switch is triggered but the selected dataset is either 2 o 3  
-    # we do not have to implement addtional functionalities
     else:
         countries_selector = no_update
         controller = no_update 
