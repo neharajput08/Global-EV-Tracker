@@ -112,7 +112,8 @@ layout = dbc.Container(
             style = {
                 "position" : "relative", 
                 "width" : "100%",
-                "height" : "56.25%"}
+                "height" : "56.25%"
+            }
         )
     ],
     fluid = False,
