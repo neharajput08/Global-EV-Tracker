@@ -462,7 +462,7 @@ def update_switch_output(type_dataset,
                             'index' : f'type-plot-dyn'
                         },
                         label = None,
-                        value = True, # set it off
+                        value = True,
                         className = 'switch'
                     )
                 ]
