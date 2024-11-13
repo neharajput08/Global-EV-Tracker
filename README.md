@@ -12,4 +12,4 @@ This repository includes a segment of a project I co-led at New AutoMotive that 
 
 * `Plot 2 (Finland).png`: A line chart illustrating monthly Battery Electric Vehicle (BEV) sales from the top ten BEV manufacturers for Finland. This chart was part of the Plotly Dash dashboard.
 
-* `API.py`: This Python script was used to create a Flask API to populate country-specific pages on the company website through SquareSpace’s custom JavaScript feature.
+* `API.py`: This Python script was used to create a Flask API to populate country-specific pages on the company website via SquareSpace’s custom JavaScript feature.
